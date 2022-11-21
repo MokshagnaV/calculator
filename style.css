@@ -1,0 +1,77 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-image: linear-gradient(#4040bf, #19194d);
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+.calci-box{
+    border: 5px solid black;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #1e2f2f;
+}
+.keypad{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+.keys {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid black;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #94b8b8;
+}
+footer{
+    /* background-color: #4040bf; */
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer > p, #githublink{
+    margin: 5px;
+    color: aliceblue;
+    text-decoration: none;
+}
+.clear, .equals{
+    grid-column: span 2;
+}
+.display{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid black;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #94b8b8;
+
+}
+.expression{
+    height: 30px;
+    text-align: right;
+    font-weight: bolder;
+    font-size: 24px;
+}
+.result{
+    height: 60px;
+    font-size: 36px;
+    font-weight: bolder;
+    text-align: right;
+}
+img{
+    width: 16px;
+    margin: 0 5px 0 20px;
+}
