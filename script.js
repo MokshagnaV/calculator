@@ -12,7 +12,7 @@ const operate = (op, a, b) => {
         case '/' : return div(a, b);
     }
 }
-let a,b, oper;
+let a,b, gOper, op;
 /* -------------------------------clear & del functions----------------------------------*/
 const result = document.querySelector(".result");
 const expression = document.querySelector(".expression");
@@ -22,17 +22,20 @@ const clear = document.querySelector(".clear");
 clear.addEventListener("click", () => {
     result.textContent = "";
     expression.textContent = "";
-    [a, b, oper] = [undefined, undefined, undefined];
+    [a, b, gOper] = [undefined, undefined, undefined];
 });
 const del = document.querySelector(".del");
 del.addEventListener("click", () => {
+    delOp();
+});
+
+const delOp = () => {
     let deleted = result.textContent
                     .split("")
                     .slice(0, result.textContent.length - 1)
                     .join("");
     result.textContent = deleted;
-});
-
+}
 /* -----------------------------------numbers & operators ------------------------------------*/
 const numbers = document.querySelectorAll(".number");
 numbers.forEach((number) => {
@@ -43,56 +46,70 @@ numbers.forEach((number) => {
 })
 const numberEvent = (num) =>{
     const number = result.textContent
+    if(number.length >= 9){
+        return;
+    }
     result.textContent = number + num;
 }
 
 const operators = document.querySelectorAll(".operator");
 operators.forEach((operator) => {
     operator.addEventListener("click", (e) => {
-        const op = e.target.textContent;
-        console.log(op)
+        op = e.target.textContent;
         operatorEvent(op);
     })
 })
 const operatorEvent = (op) =>{
     const num = result.textContent;
-    result.textContent = "";
-    if(!a){
-        a = num
-        oper = op
+    if(expression.textContent === "" && result.textContent === ""){
+        return
+    }
+    else if(expression.textContent === "" && result.textContent !== ""){
+        expression.textContent = num + ` ${op}`;
+        a = num;
+        gOper = op;
+        result.textContent = "";
     }
     else{
-        b = num
+        b = result.textContent;
+        a = operate(gOper, a, b);
+        gOper = op
+        b = undefined;
+        expression.textContent = a + ` ${op}`;
+        result.textContent = "";
+
     }
-    if(b){
-        result.textContent = operate(op, a, b);
-    }
-    console.log(a,b);
 }
 const eq = document.querySelector(".equals");
 eq.addEventListener("click", (e) => {
-    if(!b){
-        if(result.textContent !== ""){
-            b = result.textContent;
-        }else{
-            return;
-        }
-    }
-    const temp = e.target.textContent;
-    console.log(a,b,oper);
-    a = operate(oper, a, b);
-    result.textContent = a;
+    eqOp();
 })
+const eqOp = () =>{
+    if(result.textContent !== ""){
+        b = result.textContent;
+    }else{
+        result.textContent = expression.textContent.slice(0, expression.textContent.length - 2);
+        expression.textContent = "";
+        return;
+    }
+    a = operate(gOper, a, b);
+    result.textContent = a;
+    expression.textContent = "";
+}
 
+/*--------------------------------  Keyboard Functions ---------------------------------*/
 window.addEventListener("keydown", (e) => {
     if(e.key in [...numbers].map((x)=>x.textContent)){
         numberEvent(e.key);
     }
-    else if(e.key in [...operators].map((x)=>x.textContent)){
-        console.log("egijlagjligjea");
+    else if([...operators].map((x) => x.textContent).includes(e.key)){
+        operatorEvent(e.key);
     }
-    else if(e.key === "Backspace")
-        
-    console.log(e.key)
-        // console.log([...operators].map((x)=>x.textContent));
+    else if(e.key === "Backspace" || e.key == "Delete"){
+        delOp();
+    }
+    else if(e.key === "=" || e.key === "Enter"){
+        eqOp()
+    }
+    console.log(e.key);
 })
