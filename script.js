@@ -116,5 +116,4 @@ window.addEventListener("keydown", (e) => {
     else if(e.key === "=" || e.key === "Enter"){
         eqOp()
     }
-    console.log(e.key);
 })

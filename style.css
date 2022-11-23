@@ -96,6 +96,6 @@ img{
     background-color:slateblue;
     box-shadow: 0px 0px 10px 2px slateblue;
 }
-.equals, .clear, .number, .del, .opereator{
-    transition: 0.5s;
+.equals, .clear, .number, .del, .operator{
+    transition: .5s;
 }
