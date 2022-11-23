@@ -64,6 +64,11 @@ const operatorEvent = (op) =>{
     if(expression.textContent === "" && result.textContent === ""){
         return
     }
+    else if(expression.textContent !== "" && result.textContent === ""){
+        gOper  = op;
+        expression.textContent = `${expression.textContent.slice(0, expression.textContent.length - 2)} ${op}`;
+        return;
+    }
     else if(expression.textContent === "" && result.textContent !== ""){
         expression.textContent = num + ` ${op}`;
         a = num;
