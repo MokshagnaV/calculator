@@ -26,6 +26,7 @@ main{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
+    user-select: none; 
 }
 .keys {
     display: flex;
@@ -71,6 +72,10 @@ footer > p, #githublink{
     font-size: 36px;
     font-weight: bolder;
     text-align: right;
+    width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 img{
     width: 16px;
